@@ -16,6 +16,7 @@
     <sup>2</sup>Simon Fraser University
     <br>
     * Equal Contribution
+    <h3 align="center"><strong><span style="color: #9C2018;">RSS 2025</span></strong></h3>
 </p>
 
 <p align="center">
@@ -27,8 +28,11 @@
     <img src="./poster.gif" width="80%">
 </p>
 
+## News
+- 🎉 Apr 2025: HumanUP has been accepted by RSS 2025
+
 ## HumanUP
-**[HumanUP](https://arxiv.org/abs/2502.12152)** is an RL learning framework for training humanoid robots to get up from supine (i.e., lying face up) or prone (i.e., lying face down) poses. This codebase is initially built for code release of this **[HumanUP](https://arxiv.org/abs/2502.12152)** paper, which supports simulation training of **Unitree G1** humanoid robot. The simulation training is based on **Isaac Gym**.
+**[HumanUP](https://arxiv.org/abs/2502.12152)** is an RL learning framework for training humanoid robots to get up from supine (i.e., lying face up) or prone (i.e., lying face down) poses. This codebase is initially built for the code release of this **[HumanUP](https://arxiv.org/abs/2502.12152)** paper, which supports simulation training of **Unitree G1** humanoid robot. The simulation training is based on **Isaac Gym**.
 
 ## Installation
 See [installation instructions](./docs/install.md).
