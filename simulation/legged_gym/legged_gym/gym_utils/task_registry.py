@@ -155,6 +155,8 @@ class TaskRegistry():
         #save resume path before creating a new log_dir
         # return runner, train_cfg, None
         resume = train_cfg.runner.resume
+        print("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111")
+        print("resume: ", resume)
         if args.resumeid:
             log_root = LEGGED_GYM_ROOT_DIR + f"/logs/{args.proj_name}/" + args.resumeid
             resume = True

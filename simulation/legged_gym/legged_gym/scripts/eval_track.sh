@@ -12,4 +12,4 @@ python play.py --task "${task_name}" \
                 --num_envs 1 \
                 --checkpoint "${checkpoint}" \
                 --traj_name "${traj_name}"\
-                --record_video
+                --record_video \

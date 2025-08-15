@@ -7,13 +7,14 @@ traj_name=${4}
 
 # Run the training script
 python train.py --task "${task_name}" \
+                --resume \
+                --resumeid "stage2_get_up" \
                 --proj_name "${proj_name}" \
                 --exptid "${exptid}" \
                 --device "${3}" \
-                --num_envs 4096 \
-                --headless \
+                --num_envs 16 \
                 --fix_action_std \
                 --traj_name "${traj_name}"\
-                # --debug \
-                # --resume \
-                # --resumeid XXX
+                #--debug \
+                #--num_envs 3072 \
+                #--headless \

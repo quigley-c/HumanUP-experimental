@@ -34,7 +34,7 @@
 from legged_gym.envs.base.humanoid_config import HumanoidCfg, HumanoidCfgPPO
 
 
-class G1WaistHumanUPCfg(HumanoidCfg):
+class G1ExpHumanUPCfg(HumanoidCfg):
     class env(HumanoidCfg.env):
         num_envs = 4096
         num_actions = 23  # NOTE: the wrist dof is removed
@@ -318,7 +318,7 @@ class G1WaistHumanUPCfg(HumanoidCfg):
             ang_vel_yaw = [-0.6, 0.6]  # min max [rad/s]
 
 
-class G1WaistHumanUPCfgPPO(HumanoidCfgPPO):
+class G1ExpHumanUPCfgPPO(HumanoidCfgPPO):
     seed = 1
 
     class runner(HumanoidCfgPPO.runner):
