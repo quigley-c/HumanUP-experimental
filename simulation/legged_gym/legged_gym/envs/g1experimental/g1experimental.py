@@ -54,7 +54,7 @@ from legged_gym.gym_utils.math import quat_apply_yaw, wrap_to_pi, torch_rand_sqr
 from legged_gym.gym_utils.helpers import class_to_dict
 from legged_gym.envs.base.humanoid import Humanoid
 from legged_gym.envs.base.humanoid_config import HumanoidCfg, HumanoidCfgPPO
-from legged_gym.envs.g1exp.g1exp_config import G1ExpHumanUPCfg
+from legged_gym.envs.g1experimental.g1exp_config import G1ExpHumanUPCfg
 
 
 class G1ExpHumanUP(Humanoid):
@@ -95,7 +95,7 @@ class G1ExpHumanUP(Humanoid):
         self.initial_dof_pos = torch.tensor([-0.3600,  0.2481,  1.6115, -0.0647, -0.8612, -0.1226, -0.3878,  0.3584,
             1.5328,  0.1519, -0.8651,  0.2362, -0.0357,  0.0685, -0.5200,  0.4665,
             0.8218,  0.4253,  1.2972,  0.1429, -1.0324, -0.4241,  1.4075]).to(sim_device).repeat(self.num_envs, 1)
-        
+
         self.left_dof_indices = torch.tensor([0, 1, 2, 3, 4, 5, 15, 16, 17, 18], device=self.device, dtype=torch.long)
         self.right_dof_indices = torch.tensor([6, 7, 8, 9, 10, 11, 19, 20, 21, 22], device=self.device, dtype=torch.long)
         self.waist_indices = torch.tensor([12, 13], device=self.device, dtype=torch.long)
@@ -199,7 +199,7 @@ class G1ExpHumanUP(Humanoid):
 
         start_pose = gymapi.Transform()
         start_pose.p = gymapi.Vec3(*self.base_init_state[:3])
-        
+
         self._get_env_origins()
         spacing = self.cfg.env.env_spacing
         if self.cfg.terrain.mesh_type == "plane":
@@ -350,7 +350,7 @@ class G1ExpHumanUP(Humanoid):
 
     def _reset_stand_and_lie_states(self, env_ids, dof_pos):
         if self.cfg.rewards.standing_scale_curriculum:
-            self._update_standing_prob_curriculum() 
+            self._update_standing_prob_curriculum()
         num_standing = int(self.num_envs * self.standing_init_prob)
         # sample_standing_env_idx = torch.randperm(self.num_envs)[:num_standing]
         standing_env_flag = env_ids < num_standing
@@ -574,7 +574,7 @@ class G1ExpHumanUP(Humanoid):
         if self.cfg.env.terminate_on_velocity:
             base_vel = torch.norm(self.base_lin_vel, dim=-1)
             vel_too_large = base_vel > 2.5
-            self.reset_buf[vel_too_large] = 1     
+            self.reset_buf[vel_too_large] = 1
         if self.cfg.env.terminate_on_height:
             base_too_high = torch.logical_or(self.root_states[:, 2] > 1.2, self.root_states[:, 2] < 0.0)
             self.reset_buf[base_too_high] = 1
@@ -780,7 +780,7 @@ class G1ExpHumanUP(Humanoid):
         base_height = self.root_states[:, 2]
         delta_height = base_height - self.last_base_height
         rise_up = delta_height > 0
-        rew = torch.ones_like(base_height) 
+        rew = torch.ones_like(base_height)
         rew[~rise_up] = 0.0
         return rew
 
@@ -805,7 +805,7 @@ class G1ExpHumanUP(Humanoid):
         rew = torch.ones_like(stand_on_both) * 1.0
         rew[~stand_on_both] = 0.0
         return rew
-    
+
     def _reward_dof_vel(self):
         return torch.sum(torch.square(self.dof_vel), dim=1)
 
@@ -817,27 +817,27 @@ class G1ExpHumanUP(Humanoid):
 
     def _reward_action_rate(self):
         return torch.norm(self.last_actions - self.actions, dim=-1)
-    
+
     def _reward_torques(self):
         return torch.norm(self.torques, dim=-1)
-    
+
     def _reward_dof_pos_limits(self):
         out_of_limits = -(self.dof_pos - self.dof_pos_limits[:, 0]).clip(max=0.)  # lower limit
         out_of_limits += (self.dof_pos - self.dof_pos_limits[:, 1]).clip(min=0.)
         return torch.sum(out_of_limits, dim=1)
-    
+
     def _reward_dof_torque_limits(self):
         # out_of_limits = torch.sum((torch.abs(self.torques) - self.torque_limits * self.cfg.rewards.soft_torque_limit).clip(min=0), dim=1)
         # return out_of_limits
         out_of_limits = torch.sum((torch.abs(self.torques) / self.torque_limits - self.cfg.rewards.soft_torque_limit).clip(min=0), dim=1)
         return out_of_limits
-    
+
     def _reward_energy(self):
         return torch.norm(torch.abs(self.torques * self.dof_vel), dim=-1)
-    
+
     def _reward_dof_acc(self):
         return torch.sum(torch.square((self.last_dof_vel - self.dof_vel) / self.dt), dim=1)
-    
+
     def _reward_body_up_exp(self):
         z_axis = self.projected_gravity[:, 2]  # + down/ - up
         reward = torch.exp(-z_axis)
