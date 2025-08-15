@@ -54,7 +54,7 @@ from legged_gym.gym_utils.math import quat_apply_yaw, wrap_to_pi, torch_rand_sqr
 from legged_gym.gym_utils.helpers import class_to_dict
 from legged_gym.envs.base.humanoid import Humanoid
 from legged_gym.envs.base.humanoid_config import HumanoidCfg, HumanoidCfgPPO
-from legged_gym.envs.g1experimental.g1exp_config import G1ExpHumanUPCfg
+from legged_gym.envs.g1experimental.g1experimental_config import G1ExpHumanUPCfg
 
 
 class G1ExpHumanUP(Humanoid):
