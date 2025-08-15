@@ -59,3 +59,5 @@ task_registry.register("g1waist_track", G1WaistTrack, G1WaistTrackCfg(), G1Waist
 task_registry.register("g1waistroll_up", G1WaistRollHumanUP, G1WaistRollHumanUPCfg(), G1WaistRollHumanUPCfgPPO())
 
 task_registry.register("g1waistroll_track", G1WaistRollTrack, G1WaistRollTrackCfg(), G1WaistRollTrackCfgPPO())
+
+task_registry.register("g1experimental", G1ExpHumanUP, G1ExpHumanUPCfg(), G1ExpHumanUPCfgPPO())
