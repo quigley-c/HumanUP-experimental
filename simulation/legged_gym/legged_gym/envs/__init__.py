@@ -48,6 +48,9 @@ from .g1track.g1waist_track import G1WaistTrack
 from .g1rolltrack.g1waistroll_track_config import G1WaistRollTrackCfg, G1WaistRollTrackCfgPPO
 from .g1rolltrack.g1waistroll_track import G1WaistRollTrack
 
+from .g1experimental.g1experimental_config import G1ExpHumanUPCfg, G1ExpHumanUPCfgPPO
+from .g1experimental.g1experimental import G1ExpHumanUP
+
 from legged_gym.gym_utils.task_registry import task_registry
 
 # ======================= environment registration =======================
